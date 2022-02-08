@@ -1,0 +1,13 @@
+{
+  "instructors": [
+    {
+      "id": 1,
+      "name": "Isaque",
+      "avatar_url": "https://google.com",
+      "birth": 775267200000,
+      "gender": "M",
+      "services": "Bumbum Granada",
+      "created_at": 1644355049635
+    }
+  ]
+}
