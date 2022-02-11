@@ -1,15 +1,41 @@
 const fs = require('fs')
 const data = require("./data.json")
-//const { isBuffer } = require('util')
-//Create
+const { age } = require('./utils')
+
+//show
+exports.show = function(req, res){
+    //req.params
+    const { id } = req.params
+
+    const foundInstructor = data.instructors.find(function(instructor){
+        return id == instructor.id
+        
+    })
+
+    if (!foundInstructor) return res.send("Instructor Not Found!")
+
+
+    const instructor = {
+        ...foundInstructor,
+        age: age(foundInstructor.birth),
+        services: foundInstructor.services,
+        created_at: new Intl.DateTimeFormat("pt-BR").format(foundInstructor.created_at),
+    }
+
+
+    return res.render("instructors/show", { instructor })
+
+
+}
+
+// create
 exports.post = function(req, res){
-    //re.query
-    //req.body
-    //{"avatar_url":"https://google.com","birth":"2000-02-23","gender":"M","services":"llalala"}
+
 
     const keys = Object.keys(req.body)
     
     for(key of keys){
+        
 
     if(req.body[key] == ""){
 
@@ -44,5 +70,5 @@ exports.post = function(req, res){
     } )
 
 
-    // return res.send(req.body)
+
 }
