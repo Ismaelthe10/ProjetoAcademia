@@ -32,9 +32,21 @@
 
 
         </section>
-    
 
 </div>
+
+<script>
+
+    const formDelete = document.querySelector("#form-delete")
+    formDelete.addEventListener("submit", function(event){
+        const confrimation = confirm("Deseja deletar?")
+        if(!confrimation){
+            event.preventDefault()
+        }
+    
+    })
+
+</script>
 
 
 {% endblock content %}

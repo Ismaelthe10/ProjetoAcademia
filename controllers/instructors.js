@@ -5,36 +5,11 @@ const { age, date } = require('../utils')
 exports.index = function(req, res){
     return res.render("instructors/index", { instructors: data.instructors})
 }
-//show
-exports.show = function(req, res){
-    //req.params
-    const { id } = req.params
-
-    const foundInstructor = data.instructors.find(function(instructor){
-        return id == instructor.id
-        
-    })
-
-    if (!foundInstructor) return res.send("Instructor Not Found!")
-
-
-    const instructor = {
-        ...foundInstructor,
-        age: age(foundInstructor.birth),
-        services: foundInstructor.services,
-        created_at: new Intl.DateTimeFormat("pt-BR").format(foundInstructor.created_at),
-    }
-
-
-    return res.render("instructors/show", { instructor })
-
-
-}
 
 exports.create = function(req, res){
     return res.render("instructors/create")
 }
-// create
+
 exports.post = function(req, res){
 
 
@@ -79,8 +54,30 @@ exports.post = function(req, res){
 
 }
 
-// edit
+exports.show = function(req, res){
+    //req.params
+    const { id } = req.params
 
+    const foundInstructor = data.instructors.find(function(instructor){
+        return id == instructor.id
+        
+    })
+
+    if (!foundInstructor) return res.send("Instructor Not Found!")
+
+
+    const instructor = {
+        ...foundInstructor,
+        age: age(foundInstructor.birth),
+        services: foundInstructor.services,
+        created_at: new Intl.DateTimeFormat("pt-BR").format(foundInstructor.created_at),
+    }
+
+
+    return res.render("instructors/show", { instructor })
+
+
+}
 exports.edit = function (req, res){
 
     const { id } = req.params
@@ -94,13 +91,11 @@ exports.edit = function (req, res){
 
     const instructor = { 
         ...foundInstructor,
-        birth: date(foundInstructor.birth)
+        birth: date(foundInstructor.birth).iso
     }
         
     return res.render('instructors/edit', { instructor } )
 }
-
-// put
 
 exports.put = function(req, res){
 
@@ -132,8 +127,6 @@ exports.put = function(req, res){
         return res.redirect(`/instructors/${id}`)
     })
 }
-
-// delete
 
 exports.delete = function(req, res){
     
